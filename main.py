@@ -39,6 +39,12 @@ while loop:
     for bomb in bomb_list:
         bomb.draw(window)
 
+    #update bombs
+    for bomb in bomb_list:
+        bomb.update()
+        if bomb.time_out: 
+            bomb_list.remove(bomb)
+
     player.draw(window)
     player.update()
     pygame.display.update()
