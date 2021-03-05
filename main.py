@@ -1,5 +1,6 @@
 import pygame,sys
 from pygame.locals import *
+from player import Player
 
 pygame.init()
 
@@ -12,6 +13,8 @@ loop = True
 
 fps = pygame.time.Clock()
 
+player = Player(50,50,20,20)
+
 while loop:
     window.fill((0,0,0))
 
@@ -21,5 +24,10 @@ while loop:
             pygame.quit()
             sys.exit()
 
+        player.direction(event)
+        
+
+    player.draw(window)
+    player.update()
     pygame.display.update()
     fps.tick(60)
