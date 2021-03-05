@@ -10,6 +10,8 @@ pygame.display.set_caption("Bomberman")
 
 loop = True
 
+fps = pygame.time.Clock()
+
 while loop:
     window.fill((0,0,0))
 
@@ -20,3 +22,4 @@ while loop:
             sys.exit()
 
     pygame.display.update()
+    fps.tick(60)
