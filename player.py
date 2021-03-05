@@ -7,9 +7,9 @@ class Player:
 
         self.rect = pygame.Rect(x,y,width,height)
 
-        self.color = (255,0,0)
+        self.color = (255,255,255)
 
-        self.vel = 3
+        self.vel = 5
 
         self.right = False
         self.left = False
