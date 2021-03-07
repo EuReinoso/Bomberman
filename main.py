@@ -2,6 +2,7 @@ import pygame,sys
 from pygame.locals import *
 from player import Player
 from bomb import Bomb
+from explosion import Explosion
 
 pygame.init()
 
@@ -20,6 +21,8 @@ bomb_list = []
 def put_bomb():
     bomb_list.append(Bomb(player.rect.x,player.rect.y))
 
+explosion_list = []
+
 while loop:
     window.fill((0,0,0))
 
@@ -33,17 +36,30 @@ while loop:
                 put_bomb()
 
         player.direction(event)
-        
     
-    #draw bombs
+    #draw bomb
     for bomb in bomb_list:
         bomb.draw(window)
 
     #update bombs
     for bomb in bomb_list:
         bomb.update()
+        
         if bomb.time_out: 
             bomb_list.remove(bomb)
+            explosion_list.append(Explosion(bomb.rect.x,bomb.rect.y))
+
+    #draw explosion
+    for explosion in explosion_list:
+        explosion.draw(window)
+
+    #update explosions
+    for explosion in explosion_list:
+        explosion.update()
+
+        if explosion.time_out == True:
+            explosion_list.remove(explosion)
+            
 
     player.draw(window)
     player.update()
