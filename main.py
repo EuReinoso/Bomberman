@@ -6,16 +6,31 @@ from explosion import Explosion
 
 pygame.init()
 
-WINDOW_SIZE = (820,640)
+WINDOW_SIZE = (640,480)
 
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Bomberman")
 
-loop = True
+#map
+def load_map(path):
+    f = open('map' + path + '.txt','r')
+    data = f.read()
+    f.close()
+
+    data = data.split("\n")
+    game_map = []
+    for row in data:
+        game_map.append(list(row))
+    return game_map
+
+main_map = load_map('1')
+
+TILE_SIZE = 64
+TILE_COLOR = (18,10,143)
 
 fps = pygame.time.Clock()
 
-player = Player(50,50,30,30)
+player = Player(50,50,32,32)
 
 bomb_list = []
 def put_bomb():
@@ -23,8 +38,9 @@ def put_bomb():
 
 explosion_list = []
 
+loop = True
 while loop:
-    window.fill((0,0,0))
+    window.fill((210,180,240))
 
     #events
     for event in pygame.event.get():
@@ -37,6 +53,17 @@ while loop:
 
         player.direction(event)
     
+    #draw map
+    y = 0
+    for row in main_map:
+        x = 0
+        for tile in row:
+            if tile == '1':
+                pygame.draw.rect(window,TILE_COLOR,(x * TILE_SIZE,10 + (y * TILE_SIZE),TILE_SIZE,TILE_SIZE))
+
+            x += 1
+        y += 1
+
     #draw bomb
     for bomb in bomb_list:
         bomb.draw(window)
